@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Catalogue</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .book-container {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 20px;
+            transition: box-shadow 0.3s ease;
+        }
+        .book-container:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .pagination-button {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-100 text-gray-900">
+
+   
+    <nav class="bg-blue-600 text-white py-4">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <a href="#" class="text-xl font-bold">Online Library</a>
+            <div>
+                <a href="#" class="px-4 py-2 hover:bg-blue-700 rounded">Home</a>
+                <a href="#" class="px-4 py-2 hover:bg-blue-700 rounded">About</a>
+                <a href="#" class="px-4 py-2 hover:bg-blue-700 rounded">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+   
+    <main class="container mx-auto p-4">
+        
+        <div class="mb-4 flex flex-col sm:flex-row justify-between items-center">
+            <div class="mb-2 sm:mb-0">
+                <input type="text" id="search" placeholder="Search by title or author" class="p-2 border border-gray-300 rounded">
+            </div>
+            <div>
+                <select id="sort" class="p-2 border border-gray-300 rounded">
+                    <option value="name">Sort by Title</option>
+                    <option value="author">Sort by Author</option>
+                </select>
+            </div>
+        </div>
+
+      
+        <div id="book-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+         
+        </div>
+
+     
+        <div id="pagination" class="mt-4 flex justify-between items-center">
+            <button id="prev" class="pagination-button p-2 bg-blue-500 text-white rounded hover:bg-blue-600" disabled>Previous</button>
+            <span id="page-info"></span>
+            <button id="next" class="pagination-button p-2 bg-blue-500 text-white rounded hover:bg-blue-600">Next</button>
+        </div>
+    </main>
+
+    
+    <footer class="bg-blue-600 text-white py-4">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 Online Library. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const booksPerPage = 5;
+        let currentPage = 1;
+        let books = [];
+
+        function renderBooks() {
+            const bookList = document.getElementById('book-list');
+            bookList.innerHTML = '';
+            
+            const start = (currentPage - 1) * booksPerPage;
+            const end = Math.min(start + booksPerPage, books.length);
+            
+            for (let i = start; i < end; i++) {
+                const book = books[i];
+                
+                fetch(`https://covers.openlibrary.org/b/isbn/${book.ISBN}-L.jpg`)
+                    .then(response => {
+                        if (response.ok) {
+                            return response.url;
+                        } else {
+                            return '/resources/nobookimage.png'; 
+                        }
+                    })
+                    .then(imageUrl => {
+                        const bookContainer = document.createElement('div');
+                        bookContainer.className = 'book-container flex items-start';
+                        
+                        bookContainer.innerHTML = `
+                            <img src="${imageUrl}" alt="${book.Name}" class="w-40 h-56 object-cover rounded-md mr-4">
+                            <div class="book-details flex-1">
+                                <h2 class="text-xl font-semibold">${book.Name}</h2>
+                                <p class="mt-2"><strong>Author:</strong> ${book.Author}</p>
+                                <p><strong>Year:</strong> ${book.year}</p>
+                                <p><strong>ISBN:</strong> ${book.ISBN}</p>
+                            </div>
+                        `;
+                        bookList.appendChild(bookContainer);
+                    })
+                    .catch(error => console.error('Error fetching the book image:', error));
+            }
+
+            document.getElementById('page-info').innerText = `Page ${currentPage} of ${Math.ceil(books.length / booksPerPage)}`;
+            document.getElementById('prev').disabled = currentPage === 1;
+            document.getElementById('next').disabled = currentPage === Math.ceil(books.length / booksPerPage);
+        }
+
+        function fetchBooks() {
+            fetch("http://127.0.0.1:5501/book.json")
+                .then(response => response.json())
+                .then(data => {
+                    books = data;
+                    handleFilterAndSort();
+                })
+                .catch(error => console.error('Error fetching the book data:', error));
+        }
+
+        function handleFilterAndSort() {
+            const searchTerm = document.getElementById('search').value.toLowerCase();
+            const sortOption = document.getElementById('sort').value;
+
+            const filteredBooks = books.filter(book =>
+                book.Name.toLowerCase().includes(searchTerm) || book.Author.toLowerCase().includes(searchTerm)
+            );
+
+            if (sortOption === 'name') {
+                filteredBooks.sort((a, b) => a.Name.localeCompare(b.Name));
+            } else if (sortOption === 'author') {
+                filteredBooks.sort((a, b) => a.Author.localeCompare(b.Author));
+            }
+
+            books = filteredBooks;
+            renderBooks();
+        }
+
+        document.getElementById('search').addEventListener('input', handleFilterAndSort);
+        document.getElementById('sort').addEventListener('change', handleFilterAndSort);
+
+        document.getElementById('prev').addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderBooks();
+            }
+        });
+
+        document.getElementById('next').addEventListener('click', () => {
+            if (currentPage < Math.ceil(books.length / booksPerPage)) {
+                currentPage++;
+                renderBooks();
+            }
+        });
+
+     
+        fetchBooks();
+    </script>
+
+</body>
+</html>

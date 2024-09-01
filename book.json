@@ -1,17 +1,86 @@
 [
-    {"Name": "Whispers in the Wind", "Author": "Eva Hart", "year": 2001},
-    {"Name": "The Silent Echo", "Author": "Liam Cross", "year": 1998},
-    {"Name": "Shadows of Yesterday", "Author": "Nina Grace", "year": 2005},
-    {"Name": "Beyond the Horizon", "Author": "Oliver Hayes", "year": 2010},
-    {"Name": "The Lost Chronicle", "Author": "Sophia Carter", "year": 2012},
-    {"Name": "Echoes of Eternity", "Author": "Ethan Blake", "year": 2007},
-    {"Name": "Winds of Change", "Author": "Mia Donovan", "year": 2009},
-    {"Name": "The Forgotten Path", "Author": "Jacob Reed", "year": 2003},
-    {"Name": "Voices from the Past", "Author": "Lily Collins", "year": 1995},
-    {"Name": "The Last Ember", "Author": "James Archer", "year": 2015},
-    {"Name": "Beneath the Surface", "Author": "Ella Roberts", "year": 2008},
-    {"Name": "The Final Verdict", "Author": "Grace Mitchell", "year": 2011},
-    {"Name": "Rising Tides", "Author": "Lucas Gray", "year": 2004},
-    {"Name": "The Midnight Hour", "Author": "Harper Lee", "year": 2013},
-    {"Name": "Dawn of Destiny", "Author": "Noah Bennett", "year": 2017}
-];
+    {
+        "Name": "To Kill a Mockingbird",
+        "Author": "Harper Lee",
+        "year": 1960,
+        "ISBN": "9780061120084"
+    },
+    {
+        "Name": "1984",
+        "Author": "George Orwell",
+        "year": 1949,
+        "ISBN": "9780451524935"
+    },
+    {
+        "Name": "Pride and Prejudice",
+        "Author": "Jane Austen",
+        "year": 1813,
+        "ISBN": "9780141040349"
+    },
+    {
+        "Name": "The Great Gatsby",
+        "Author": "F. Scott Fitzgerald",
+        "year": 1925,
+        "ISBN": "9780743273565"
+    },
+    {
+        "Name": "War and Peace",
+        "Author": "Leo Tolstoy",
+        "year": 1869,
+        "ISBN": "9780199232765"
+    },
+    {
+        "Name": "The Catcher in the Rye",
+        "Author": "J.D. Salinger",
+        "year": 1951,
+        "ISBN": "9780316769488"
+    },
+    {
+        "Name": "Fahrenheit 451",
+        "Author": "Ray Bradbury",
+        "year": 1953,
+        "ISBN": "9781451673319"
+    },
+    {
+        "Name": "The Lord of the Rings",
+        "Author": "J.R.R. Tolkien",
+        "year": 1954,
+        "ISBN": "9780544003415"
+    },
+    {
+        "Name": "Brave New World",
+        "Author": "Aldous Huxley",
+        "year": 1932,
+        "ISBN": "9780060850524"
+    },
+    {
+        "Name": "Wuthering Heights",
+        "Author": "Emily Brontë",
+        "year": 1847,
+        "ISBN": "9780141439556"
+    },
+    {
+        "Name": "The Brothers Karamazov",
+        "Author": "Fyodor Dostoevsky",
+        "year": 1880,
+        "ISBN": "9780374528379"
+    },
+    {
+        "Name": "Crime and Punishment",
+        "Author": "Fyodor Dostoevsky",
+        "year": 1866,
+        "ISBN": "9780140449136"
+    },
+    {
+        "Name": "Les Misérables",
+        "Author": "Victor Hugo",
+        "year": 1862,
+        "ISBN": "9780451419439"
+    },
+    {
+        "Name": "Catch-22",
+        "Author": "Joseph Heller",
+        "year": 1961,
+        "ISBN": "9781451626650"
+    }
+]
